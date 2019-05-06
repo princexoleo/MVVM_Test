@@ -1,6 +1,9 @@
 package com.leo.testingmvvm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,8 +14,10 @@ import android.widget.ProgressBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.leo.testingmvvm.adapter.RecyclerAdapter;
 import com.leo.testingmvvm.models.NicePlace;
+import com.leo.testingmvvm.viewmodels.MainActivityViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private RecyclerAdapter adapter;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         mFab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recycler_view_id);
         progressBar = findViewById(R.id.progress_bar);
+        //mainActivityViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity);
+        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+
+
+        mainActivityViewModel.getNicePlaces().observe(this, new Observer<List<NicePlace>>() {
+            @Override
+            public void onChanged(List<NicePlace> nicePlaces) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         //initial recyclerview with recycler adapter
         initRecyclerView();
@@ -38,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        adapter = new RecyclerAdapter(new ArrayList<NicePlace>(),MainActivity.this);
+        adapter = new RecyclerAdapter(mainActivityViewModel.getNicePlaces().getValue(),MainActivity.this);
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -50,8 +66,5 @@ public class MainActivity extends AppCompatActivity {
     private void hideProgressbar(){
         progressBar.setVisibility(View.INVISIBLE);
     }
-
-
-
 
 }
