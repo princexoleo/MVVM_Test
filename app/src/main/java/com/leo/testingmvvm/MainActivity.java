@@ -43,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
+    private void showProgressbar(){
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
+    private void hideProgressbar(){
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 
 
 
