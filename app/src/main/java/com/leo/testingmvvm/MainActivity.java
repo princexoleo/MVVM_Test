@@ -23,5 +23,7 @@ public class MainActivity extends AppCompatActivity {
         mFab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recycler_view_id);
         progressBar = findViewById(R.id.progress_bar);
+
+
     }
 }
