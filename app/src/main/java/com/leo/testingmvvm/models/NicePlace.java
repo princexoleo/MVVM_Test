@@ -4,7 +4,7 @@ public class NicePlace {
     private String title ;
     private String ImageUri ;
 
-    public NicePlace(String title, String imageUri) {
+    public NicePlace( String imageUri,String title) {
         this.title = title;
         ImageUri = imageUri;
     }

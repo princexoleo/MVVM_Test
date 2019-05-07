@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_id);
         progressBar = findViewById(R.id.progress_bar);
         //mainActivityViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity);
+
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mainActivityViewModel.init();
 
 
         mainActivityViewModel.getNicePlaces().observe(this, new Observer<List<NicePlace>>() {
