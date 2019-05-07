@@ -40,7 +40,6 @@
                android:layout_gravity="center"
                android:textSize="18sp"/>
        </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
